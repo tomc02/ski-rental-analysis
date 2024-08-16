@@ -1,0 +1,54 @@
+CREATE OR REPLACE PROCEDURE ski_list_with_filter (p_category IN VARCHAR2, p_length_min IN INTEGER, p_length_max IN INTEGER, p_price_min IN INTEGER, p_price_max IN INTEGER, p_order_by IN VARCHAR2, p_order_direction IN VARCHAR2)
+IS
+    CURSOR c1 IS
+        SELECT * FROM ski
+        WHERE category = p_category
+        AND length BETWEEN p_length_min AND p_length_max
+        AND price BETWEEN p_price_min AND p_price_max;
+    v_ski_id ski.ski_id%TYPE;
+    v_category ski.category%TYPE;
+    v_length ski.length%TYPE;
+    v_price ski.price%TYPE;
+    v_brand ski.brand%TYPE;
+    v_model ski.model%TYPE;
+    v_description ski.description%TYPE;
+    v_image_path ski.image_path%TYPE;
+BEGIN
+
+end;
+
+CREATE OR REPLACE PROCEDURE create_rental (p_date_from IN DATE, p_date_to IN DATE, p_customer_user_id IN INTEGER, p_employee_user_id IN INTEGER, p_ski_id IN INTEGER)
+IS
+    v_rental_id INTEGER;
+    v_rental_status VARCHAR2(20);
+    v_date_returned DATE;
+    v_payment_id INTEGER;
+    v_payment_type VARCHAR2(20);
+    v_payment_date DATE;
+    v_payment_amount INTEGER;
+    v_payment_status VARCHAR2(20);
+    v_rental_ski_id INTEGER;
+BEGIN
+    v_rental_status := 'Coming';
+    v_date_returned := NULL;
+    v_payment_type := 'Cash';
+    v_payment_date := NULL;
+    v_payment_amount := 3000;
+    v_payment_status := 'Processing';
+    v_rental_ski_id := NULL;
+
+    INSERT INTO rental (date_from, date_to, rental_status, date_returned, customer_user_id, employee_user_id)
+    VALUES (p_date_from, p_date_to, v_rental_status, v_date_returned, p_customer_user_id, p_employee_user_id)
+    RETURNING rental_id INTO v_rental_id;
+
+    INSERT INTO payment (type, payment_date, amount, rental_id, payment_status)
+    VALUES (v_payment_type, v_payment_date, v_payment_amount, v_rental_id, v_payment_status)
+    RETURNING payment_id INTO v_payment_id;
+
+    INSERT INTO rental_ski (rental_id, ski_id)
+    VALUES (v_rental_id, p_ski_id)
+    RETURNING rental_ski_id INTO v_rental_ski_id;
+
+    COMMIT;
+END;
+end; 

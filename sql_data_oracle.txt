@@ -1,0 +1,92 @@
+INSERT INTO CATEGORY (name, description)
+        VALUES ('Freeride', 'Freeride category is for skis that are designed for off-piste skiing. They are usually wider than other skis and have a longer turning radius.');
+INSERT INTO CATEGORY (name, description)
+        VALUES ('Slalom', 'Slalom category is for skis that are designed for slalom skiing. They are usually narrower than other skis and have a shorter turning radius.');
+INSERT INTO CATEGORY (name, description)
+        VALUES ('Allmountain', 'Allmountain category is for skis that are designed for all types of skiing. They are usually wider than other skis and have a longer turning radius.');
+
+
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+        VALUES ('K2','Reckoner 122', 184, 1, 700, 'Freeride skis with huge rocker and 122 width under foot', 'Expert');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+        VALUES  ('K2','Reckoner 122', 176, 1, 700, 'Freeride skis with huge rocker and 122 width under foot', 'Expert');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+        VALUES ('K2','Reckoner 112', 192, 1, 700, 'Freeride skis with huge rocker and 112 width under foot', 'Expert');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+        VALUES ('K2','Reckoner 112', 176, 1, 700, 'Freeride skis with huge rocker and 112 width under foot', 'Expert');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+       VALUES ('Fischer', 'RC4', 172, 2, 600, 'Slalom skis', 'Advanced');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+       VALUES ('Fischer', 'RC4', 165, 2, 600, 'Slalom skis', 'Advanced');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+       VALUES ('Atomic', 'Bent Chetler 100', 176, 3, 500, 'All-moutain skis', 'Beginner');
+INSERT INTO ski (brand, model, length,CATEGORY_ID, price, description, SKIER_EXPERIENCE)
+       VALUES ('Atomic', 'Bent Chetler 100', 184, 3, 500, 'All-moutain skis', 'Beginner');
+
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code)
+        VALUES ('Employee', 'Jan', 'Novak', 'jan.novak@vsb.cz', 'novak', 'Ostrava', 'Aleje', '725 28');
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code)
+        VALUES ('Employee', 'Miroslav', 'Novak', 'miroslav.novak@vsb.cz', 'novak', 'Ostrava', 'Aleje', '725 28');
+
+
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code, weight, height, user_ski_experience)
+        VALUES ('Customer', 'Jan', 'Novotny', 'jan.novotny@vsb.cz', 'novotny', 'Praha', 'Altajska', '100 00', 70, 180, 'Expert');
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code, weight, height, user_ski_experience)
+        VALUES ('Customer', 'Miroslav', 'Novotny', 'miroslav.novotny@vsb.cz', 'novotny', 'Praha', 'Altajska', '100 00', 80, 175, 'Advanced');
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code, weight, height, user_ski_experience)
+        VALUES ('Customer', 'Petr', 'Sikora', 'petr.sikora@vsb.cz', 'sikora', 'Praha', 'Altajska', '100 00', 80, 180, 'Advanced');
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code, weight, height, user_ski_experience)
+        VALUES ('Customer', 'Marek', 'Sikora', 'marek.sikora@vsb.cz', 'sikora', 'Praha', 'Altajska', '100 00', 80, 175, 'Expert');
+INSERT INTO "User" (role, first_name, last_name, email, password, address_town, address_street, address_postal_code, weight, height, user_ski_experience)
+        VALUES ('Customer', 'Petra', 'Sikorova', 'petra.sikorova@vsb.cz', 'sikorova', 'Praha', 'Altajska', '100 00', 55, 165, 'Beginner');
+
+
+INSERT INTO rental (date_from, date_to, rental_status, date_returned, customer_user_id, employee_user_id)
+       VALUES (SYSDATE,(SYSDATE+1),'Coming',NULL,4,1);
+INSERT INTO rental (date_from, date_to, rental_status, date_returned, customer_user_id, employee_user_id)
+       VALUES ('31-MAR-23','31-MAR-23','Active',NULL,5,2);
+INSERT INTO rental (date_from, date_to, rental_status, date_returned, customer_user_id, employee_user_id)
+       VALUES ('26-MAR-23','30-MAR-23','Ended','30-MAR-23',6,1);
+INSERT INTO rental (date_from, date_to, rental_status, date_returned, customer_user_id, employee_user_id)
+       VALUES ('24-MAR-23','02-APR-23','Active',NULL,6,1);
+INSERT INTO rental (date_from, date_to, rental_status, date_returned, customer_user_id, employee_user_id)
+       VALUES (SYSDATE,(SYSDATE+20),'Coming',NULL,5,2);
+
+INSERT INTO payment (type, payment_date, amount, rental_id, payment_status)
+    VALUES ('Card','31-MAR-23',1200,3,'Successful');
+INSERT INTO payment (type, payment_date, amount, rental_id, payment_status)
+    VALUES ('Cash','26-MAR-23',3000,2,'Returned');
+INSERT INTO payment (type, payment_date, amount, rental_id, payment_status)
+    VALUES ('Cash','26-MAR-23',3000,4,'Successful');
+INSERT INTO payment (type, payment_date, amount, rental_id, payment_status)
+    VALUES ('Cash','26-MAR-23',3000,1,'Rejected');
+INSERT INTO payment (type, payment_date, amount, rental_id, payment_status)
+    VALUES ('Cash',SYSDATE,3000,5,'Processing');
+
+
+
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (1,1);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (2,2);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (2,3);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (2,7);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (3,5);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (3,2);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (4,2);
+INSERT INTO rental_ski (rental_id,ski_id)
+        VALUES (5,3);
+
+INSERT INTO rental_history (modified_at, old_date_to, new_date_to, rental_id, user_id)
+VALUES (SYSDATE,'01-MAR-23','04-APR-23',4,1);
+INSERT INTO rental_history (modified_at, old_date_to, new_date_to, rental_id, user_id)
+VALUES ('30-MAR-23','31-MAR-23','09-APR-23',3,2);
+
+
+
+
